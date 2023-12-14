@@ -26,7 +26,7 @@ axios.defaults.withCredentials = true;
 
 const client = axios.create({
     // TODO: Put this in a .env file 
-    baseURL: "http://127.0.0.1:8000",
+    baseURL: "http://127.0.0.1:8000/api/accounts",
     sameSite: 'none',
 });
 
@@ -38,7 +38,7 @@ const LoginSignup = () => {
     const [showPass, setShowPass] = useState(false);
 
     const fetchUserProfile = () => {
-        client.get("/api/accounts/user/", {
+        client.get("/user", {
             headers: {"X-CSRFToken": cookies.load('csrftoken')}
         })
         .then(function(res) {
@@ -56,7 +56,7 @@ const LoginSignup = () => {
     const handleSubmit = (e) =>{
         e.preventDefault();
 
-        client.post(`/api/accounts/${action}/`,{
+        client.post(`/${action}`,{
                 email: email,
                 password: password
             },
