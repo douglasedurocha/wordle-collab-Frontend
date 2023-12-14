@@ -1,8 +1,54 @@
-# React + Vite
+<h1 align="center">wordle-collab-Frontend</h1>
+</p>
+<p align="center">
+<a href="https://github.com/douglasedurocha"><img title="Author" src="https://img.shields.io/badge/Author-douglasedurocha-yellow.svg?style=for-the-badge&logo=github"></a>
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">Frontend for Online Collaborative Wordle<br>using <em>ReactJS</em> and <em>Vite</em></div>
 
-Currently, two official plugins are available:
+## Clone this project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+> git clone https://github.com/douglasedurocha/wordle-collab-Frontend.git
+> cd wordle-collab-Frontend
+```
+
+## Dependencies:
+
++ [npm](https://python-poetry.org) : a package manager for the JavaScript programming language.
+
+## Getting started:
+
+Install the projects requirements
+
+```bash
+> npm install
+```
+
+## Usage (Development)
+
+```bash
+> npm run dev
+```
+
+## Pages
+
+<h3 align="center">Login</h3>
+
+<p align="center">
+<img src="https://raw.githubusercontent.com/douglasedurocha/wordle-collab-Frontend/master/media/img/LoginSignUp.png"/>
+</p>
+
+<h3 align="center">Game</h3>
+
+<p align="center">Soon</p>
+
+
+
+
+<!-- ### Usage -->
+
+<!-- ## Features
+
+|| Features |
+| :-: | - | -->
