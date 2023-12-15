@@ -1,9 +1,17 @@
-// Navbar.js
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+
 const Navbar = () => {
+    const handleLogout = () => {
+        toast.warning('You logged out', {
+            position: toast.POSITION.TOP_CENTER
+        });
+    };
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -13,7 +21,7 @@ const Navbar = () => {
                 <Button color="inherit" component={Link}>
                     Profile
                 </Button>
-                <Button color="inherit" component={Link} to="/login">
+                <Button color="inherit" component={Link} to="/login" onClick={handleLogout}>
                     Logout
                 </Button>
             </Toolbar>

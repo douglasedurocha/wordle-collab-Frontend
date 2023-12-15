@@ -12,8 +12,11 @@ import {
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import authService from '../../services/authService';
 
 
@@ -46,15 +49,31 @@ const LoginSignup = () => {
                     setCurrentUser(user);
                     console.log(user);
                     navigate('/');
+                    toast.success('You succesfuly login', {
+                        position: toast.POSITION.TOP_CENTER
+                    });
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    console.log(err)
+                    toast.error('Incorrect credentials.', {
+                        position: toast.POSITION.TOP_CENTER
+                    });
+                })
         } else if (action === 'register') {
             authService.registerUser(email, password)
                 .then(user => {
                     setCurrentUser(user);
                     console.log(user);
+                    toast.success('User created! Please log in', {
+                        position: toast.POSITION.TOP_CENTER
+                    });
                 })
-                .catch(err => console.log(err));
+                .catch(err => {
+                    console.log(err);
+                    toast.error('User with this email already exists', {
+                        position: toast.POSITION.TOP_CENTER
+                    });
+                });
         }
     };
 
