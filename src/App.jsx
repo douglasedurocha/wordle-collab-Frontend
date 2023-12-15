@@ -1,13 +1,16 @@
-import LoginSignup from './Components/LoginSignup.jsx';
-import React from 'react';
-
+import Home from "./components/pages/Home";
+import LoginSignup from "./components/auth/LoginSignup";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-  return (
-    <div className="App">
-      <LoginSignup/>
-    </div>
-  )
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<LoginSignup />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;
