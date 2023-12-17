@@ -11,16 +11,38 @@ import {
     IconButton
 } from '@mui/material';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import PersonIcon from '@mui/icons-material/Person';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
 
+import gameService from '../../services/gameService';
 import Navbar from "../common/Navbar";
 
+function GameListItem({ game }) {
+    return (
+        <ListItem>
+            <ListItemIcon>
+                <IconButton><PlayCircleIcon /></IconButton>
+            </ListItemIcon>
+            <ListItemText
+                primary={`game ${game.id}`}
+                secondary={`Created by ${game.author_email}`}
+            />
+            <Typography
+                edge="end"
+            >
+                {`${game.players_count}/${game.max_players}`}<PersonIcon sx={{mb: -0.6}}/>
+            </Typography>
+        </ListItem>
+    );
+}
 
 const Home = () => {
+    const [games, setGames] = useState([]);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -30,6 +52,15 @@ const Home = () => {
                 position: toast.POSITION.TOP_CENTER
             });
             navigate('/login');
+        } else {
+            gameService.listOpenGames()
+                .then(games => {
+                    setGames(games);
+                    console.log(games);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }, []);
 
@@ -48,20 +79,9 @@ const Home = () => {
                 </Grid>
                 <Typography variant="h5" sx={{ mt: 4 }}>Open Games</Typography>
                 <List>
-                    <ListItem>
-                    <ListItemIcon>
-                        <IconButton><PlayCircleIcon /></IconButton>
-                    </ListItemIcon>
-                    <ListItemText
-                        primary="Game 1"
-                        secondary="test@test.com"
-                    />
-                    <Typography
-                        edge="end"
-                    >
-                        1/2
-                    </Typography>
-                    </ListItem>
+                    {games.map((game) => (
+                        <GameListItem key={game.id} game={game} />
+                    ))}
                 </List>
             </Container>
         </div>
