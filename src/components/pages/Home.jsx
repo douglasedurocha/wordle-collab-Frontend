@@ -41,9 +41,21 @@ function GameListItem({ game }) {
 }
 
 const Home = () => {
-    const [games, setGames] = useState([]);
-
     const navigate = useNavigate();
+
+    const [games, setGames] = useState([]);
+    const [gameId, setGameId] = useState(null);
+
+    const handleCreateGame = () => {
+        gameService.createGame()
+            .then(game => {
+                setGameId(game.id);
+                navigate(`/game/${game.id}`);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 
     useEffect(() => {
         let value = cookies.load('sessionid') !== undefined;
@@ -73,7 +85,7 @@ const Home = () => {
                     <Box
                         display="flex" justifyContent="space-between" alignItems="center"
                     >
-                        <Button variant="contained" color="success" sx={{mr:1}}>Create</Button>
+                        <Button variant="contained" color="success" sx={{mr:1}} onClick={handleCreateGame}>Create</Button>
                         <Button variant="contained" color="warning">Join</Button>
                     </Box>
                 </Grid>
