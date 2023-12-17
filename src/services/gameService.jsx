@@ -14,8 +14,18 @@ const client = axios.create({
 const gameService = {
     createGame: async () => {
         try {
-            console.log(cookies.load('csrftoken'));
             const res = await client.post("/create", null, {
+                headers: { "X-CSRFToken": cookies.load('csrftoken') }
+            });
+            return res.data;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    getGame: async (gameId) => {
+        try {
+            const res = await client.get(`/${gameId}`, {
                 headers: { "X-CSRFToken": cookies.load('csrftoken') }
             });
             return res.data;
