@@ -23,24 +23,6 @@ import { toast } from 'react-toastify';
 import gameService from '../../services/gameService';
 import Navbar from "../common/Navbar";
 
-function GameListItem({ game }) {
-    return (
-        <ListItem>
-            <ListItemIcon>
-                <IconButton><PlayCircleIcon /></IconButton>
-            </ListItemIcon>
-            <ListItemText
-                primary={`game ${game.id}`}
-                secondary={`Created by ${game.author_email}`}
-            />
-            <Typography
-                edge="end"
-            >
-                {`${game.players_count}/${game.max_players}`}<PersonIcon sx={{mb: -0.6}}/>
-            </Typography>
-        </ListItem>
-    );
-}
 
 const Home = () => {
     const navigate = useNavigate();
@@ -77,6 +59,25 @@ const Home = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
+    }
+
+    const GameListItem = ({ game }) => {
+        return (
+            <ListItem>
+                <ListItemIcon>
+                    <IconButton onClick={() => {navigate(`/game/${game.id}`)}}><PlayCircleIcon /></IconButton>
+                </ListItemIcon>
+                <ListItemText
+                    primary={`game ${game.id}`}
+                    secondary={`Created by ${game.author_email}`}
+                />
+                <Typography
+                    edge="end"
+                >
+                    {`${game.players_count}/${game.max_players}`}<PersonIcon sx={{mb: -0.6}}/>
+                </Typography>
+            </ListItem>
+        );
     }
 
     useEffect(() => {
