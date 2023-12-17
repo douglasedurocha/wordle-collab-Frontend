@@ -4,7 +4,13 @@ import {
     Box,
     Grid,
     Typography,
+    List,
+    ListItem,
+    ListItemText,
+    ListItemIcon,
+    IconButton
 } from '@mui/material';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -40,6 +46,23 @@ const Home = () => {
                         <Button variant="contained" color="warning">Join</Button>
                     </Box>
                 </Grid>
+                <Typography variant="h5" sx={{ mt: 4 }}>Open Games</Typography>
+                <List>
+                    <ListItem>
+                    <ListItemIcon>
+                        <IconButton><PlayCircleIcon /></IconButton>
+                    </ListItemIcon>
+                    <ListItemText
+                        primary="Game 1"
+                        secondary="test@test.com"
+                    />
+                    <Typography
+                        edge="end"
+                    >
+                        1/2
+                    </Typography>
+                    </ListItem>
+                </List>
             </Container>
         </div>
     );
