@@ -78,11 +78,15 @@ const Home = () => {
                     </Box>
                 </Grid>
                 <Typography variant="h5" sx={{ mt: 4 }}>Open Games</Typography>
-                <List>
-                    {games.map((game) => (
-                        <GameListItem key={game.id} game={game} />
-                    ))}
-                </List>
+                {games.length > 0 ? (
+                    <List>
+                        {games.map((game) => (
+                            <GameListItem key={game.id} game={game} />
+                        ))}
+                    </List>
+                ) : (
+                    <Typography variant="h6" color={"text.secondary"} sx={{ mt: 4 }} align='center'>There are no games open at the moment</Typography>
+                )}
             </Container>
         </div>
     );
