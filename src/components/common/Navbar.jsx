@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Box, Typography, Button } from '@mui/material';
+import { AppBar, Toolbar, Box, Grid, Button } from '@mui/material';
 
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -26,15 +26,14 @@ const Navbar = () => {
                     alt="Your logo."
                     src={Logo}
                 />
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    Wordle Collab
-                </Typography>
-                <Button color="inherit" component={Link}>
-                    Profile
-                </Button>
-                <Button color="inherit" component={Link} to="/login" onClick={handleLogout}>
-                    Logout
-                </Button>
+                <Grid container justifyContent="end">
+                    <Button color="inherit" component={Link}>
+                        Profile
+                    </Button>
+                    <Button color="inherit" component={Link} to="/login" onClick={handleLogout}>
+                        Logout
+                    </Button>
+                </Grid>
             </Toolbar>
         </AppBar>
     );
