@@ -1,4 +1,10 @@
-import { Typography } from '@mui/material';
+import {
+    Container,
+    Button,
+    Box,
+    Grid,
+    Typography,
+} from '@mui/material';
 
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +30,17 @@ const Home = () => {
     return (
         <div>
             <Navbar />
-            <Typography variant="h5" align='center' sx={{ m: 4 }}>Welcome to Wordle Collab!</Typography>
+            <Typography variant="h5" align='center' sx={{ mt: 4 }}>Welcome to Wordle Collab!</Typography>
+            <Container maxWidth="md">
+                <Grid container spacing={0} justifyContent={"center"} sx={{ minHeight: "10vh"}}>
+                    <Box
+                        display="flex" justifyContent="space-between" alignItems="center"
+                    >
+                        <Button variant="contained" color="success" sx={{mr:1}}>Create</Button>
+                        <Button variant="contained" color="warning">Join</Button>
+                    </Box>
+                </Grid>
+            </Container>
         </div>
     );
 };
