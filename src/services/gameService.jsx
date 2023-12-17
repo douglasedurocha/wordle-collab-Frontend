@@ -15,7 +15,7 @@ const gameService = {
     createGame: async () => {
         try {
             console.log(cookies.load('csrftoken'));
-            const res = await client.get("/create", null, {
+            const res = await client.post("/create", null, {
                 headers: { "X-CSRFToken": cookies.load('csrftoken') }
             });
             return res.data;
