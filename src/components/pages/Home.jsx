@@ -1,5 +1,7 @@
 import {
     Container,
+    Modal,
+    TextField,
     Button,
     Box,
     Grid,
@@ -45,6 +47,7 @@ const Home = () => {
 
     const [games, setGames] = useState([]);
     const [gameId, setGameId] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     const handleCreateGame = () => {
         gameService.createGame()
@@ -55,6 +58,25 @@ const Home = () => {
             .catch(err => {
                 console.log(err);
             });
+    }
+
+    const handleJoinGame = () => {
+        gameService.getGame(gameId)
+            .then(game => {
+                setShowModal(false);
+                navigate(`/game/${game.id}`);
+            })
+            .catch(err => {
+                console.log(err);
+                setShowModal(false);
+                toast.error('Game not found', {
+                    position: toast.POSITION.TOP_CENTER
+                });
+            });
+    }
+
+    const handleCloseModal = () => {
+        setShowModal(false);
     }
 
     useEffect(() => {
@@ -86,7 +108,35 @@ const Home = () => {
                         display="flex" justifyContent="space-between" alignItems="center"
                     >
                         <Button variant="contained" color="success" sx={{mr:1}} onClick={handleCreateGame}>Create</Button>
-                        <Button variant="contained" color="warning">Join</Button>
+                        <Button variant="contained" color="warning" onClick={() => setShowModal(true)}>Join</Button>
+                            <Modal open={showModal} onClose={handleCloseModal}>
+                                <Box sx={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    transform: 'translate(-50%, -50%)',
+                                    bgcolor: 'background.paper',
+                                    boxShadow: 24,
+                                    p: 4,
+                                }}>
+                                    <Typography variant="h6" component="h2" align='center' sx={{mb:3}}>
+                                        Enter the game ID
+                                    </Typography>
+                                    <Grid 
+                                        container
+                                        direction="column"
+                                        justifyContent="center"
+                                    >
+                                        <TextField
+                                            label="Search field"
+                                            type="number"
+                                            required
+                                            onChange = {(e) => setGameId(e.target.value)}
+                                        />
+                                        <Button variant="contained" color="success" sx={{mt:3}} type="submit" onClick={handleJoinGame}>Join</Button>
+                                    </Grid>
+                                </Box>
+                            </Modal>
                     </Box>
                 </Grid>
                 <Typography variant="h5" sx={{ mt: 4 }}>Open Games</Typography>
