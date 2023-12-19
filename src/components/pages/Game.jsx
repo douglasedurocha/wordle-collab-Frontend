@@ -63,6 +63,11 @@ const Game = () => {
             });
             navigate('/login');
         });
+        gameService.getAttemtsByGameId(gameId)
+        .then(attempts => {
+            console.log(attempts)
+            setMessages(attempts);
+        })
         client.onopen = () => {
             console.log('WebSocket Client Connected');
         },
