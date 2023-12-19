@@ -10,11 +10,12 @@ import { w3cwebsocket as W3CWebSocket } from 'websocket';
 import Navbar from "../common/Navbar";
 
 import authService from '../../services/authService';
+import gameService from '../../services/gameService';
 
 
 const Game = () => {
     const [messages, setMessages] = useState([]);
-    const [myAttempt, setMyAttempt] = useState('');
+    const [myAttemptWord, setMyAttemptWord] = useState('');
     const [myUser, setMyUser] = useState('');
 
     const params = useParams();
@@ -25,15 +26,17 @@ const Game = () => {
     const client = new W3CWebSocket('ws://127.0.0.1:8000/ws/' + gameId);
 
     const handleAttempt = (e) => {
-        if (myAttempt.length !== 5) {
+        if (myAttemptWord.length !== 5) {
             toast.error('Please enter a 5 letter word', {
                 position: toast.POSITION.TOP_CENTER
             });
             return;
         }
         client.send(JSON.stringify({
-            'attempt': myAttempt,
-            'player': myUser
+            'word': myAttemptWord,
+            'player': {
+                'email': myUser,
+            }
         }));
     }
 
@@ -43,8 +46,7 @@ const Game = () => {
         }
     };
 
-    const getColor = (letter) => {
-        const charCode = letter.charCodeAt(0);
+    const getColor = (charCode) => {
         const hex = (charCode - 65) * 360 / 40;
         let color = "#" + hex.toString(16);
         return color;
@@ -68,7 +70,7 @@ const Game = () => {
             const dataFromServer = JSON.parse(message.data);
             if(dataFromServer){
                 setMessages((messages) => [...messages, {
-                    attempt: dataFromServer.attempt,
+                    word: dataFromServer.word,
                     player: dataFromServer.player
                 }]);
             }
@@ -79,7 +81,7 @@ const Game = () => {
         <>
             <Navbar />
             <Container maxWidth='xs' onKeyDown={handleKeyPress}>
-                <Grid
+                 <Grid
                     container
                     direction="column"
                     justifyContent="center"
@@ -89,9 +91,9 @@ const Game = () => {
                     <Grid justifyContent="center" flexGrow={0.3} sx={{mt: 2, minHeight: '50vh'}}>
                         {messages.map((message, i) => (
                         <Grid container justify="center" alignItems={'center'} sx={{marginBottom: -5,}}>
-                            { message.player !== myUser && (
+                            { message.player.email !== myUser && (
                                 <Grid item xs={1} >
-                                    <Avatar sx={{width: 30, height: 30, bgcolor: getColor(message.player.charAt(2)), textTransform: 'uppercase'}}>{message.player.charAt(0)}</Avatar>
+                                    <Avatar sx={{width: 30, height: 30, bgcolor: getColor(message.player.email.charCodeAt(1)), textTransform: 'uppercase'}}>{message.player.email.charAt(0)}</Avatar>
                                 </Grid>
                             ) || (
                                 <Grid item xs={1} >
@@ -113,10 +115,10 @@ const Game = () => {
                                     fontWeight: "bold",
                                 }}
                                 >
-                                {message.attempt}
+                                {message.word}
                                 </Typography>
                             </Grid>
-                            { message.player === myUser && (
+                            { message.player.email === myUser && (
                                 <Grid item xs={1} >
                                     <Avatar sx={{ml: -2, width: 30, height: 30, bgcolor: '#e33d4e' }}>Me</Avatar>
                                 </Grid>
@@ -145,7 +147,7 @@ const Game = () => {
                         variant='standard'
                         algin='center'
                         sx={{my: 1, mx: 'auto', width: '75%'}}
-                        onChange={(e) => {setMyAttempt(e.target.value)}}
+                        onChange={(e) => {setMyAttemptWord(e.target.value)}}
                     />
                     <Button 
                         type="submit" 
