@@ -126,6 +126,7 @@ const Game = () => {
                     </Grid>
                     <TextField
                         inputProps={{
+                            maxLength: 5,
                             sx: {
                                 fontSize: {
                                     lg: 70,
