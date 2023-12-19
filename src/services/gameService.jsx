@@ -44,6 +44,17 @@ const gameService = {
             throw error;
         }
     },
+
+    getAttemtsByGameId: async (gameId) => {
+        try {
+            const res = await client.get(`/${gameId}/attempts`, {
+                headers: { "X-CSRFToken": cookies.load('csrftoken') }
+            });
+            return res.data;
+        } catch (error) {
+            throw error;
+        }
+    }
 };
 
 export default gameService;
