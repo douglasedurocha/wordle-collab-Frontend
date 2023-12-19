@@ -56,30 +56,43 @@ const Game = () => {
         authService.fetchUserProfile()
         .then(user => {
             setMyUser(user.email);
-        }
-        ).catch(err => {
+            gameService.getAttemtsByGameId(gameId)
+            .then(attempts => {
+                console.log(attempts)
+                setMessages(attempts);
+                client.onopen = () => {
+                    console.log('WebSocket Client Connected');
+                },
+                client.onmessage = (message) => {
+                    const dataFromServer = JSON.parse(message.data);
+                    if(dataFromServer){
+                        if (dataFromServer.msg_type === 'notify') {
+                            const alertType = dataFromServer.alert === "error" ? toast.TYPE.ERROR : toast.TYPE.SUCCESS;
+        
+                            toast(dataFromServer.message, {
+                                position: toast.POSITION.TOP_CENTER,
+                                type: alertType
+                            });
+                        } else if (dataFromServer.msg_type === 'attempt'){
+                            setMessages((messages) => [...messages, {
+                                word: dataFromServer.word,
+                                player: dataFromServer.player
+                            }]);
+                        }
+                    }
+                };
+            }).catch(err => {
+                toast.error('Game room does not exist', {
+                    position: toast.POSITION.TOP_CENTER
+                });
+                navigate('/');
+            });
+        }).catch(err => {
             toast.error('Please login to continue', {
                 position: toast.POSITION.TOP_CENTER
             });
             navigate('/login');
         });
-        gameService.getAttemtsByGameId(gameId)
-        .then(attempts => {
-            console.log(attempts)
-            setMessages(attempts);
-        })
-        client.onopen = () => {
-            console.log('WebSocket Client Connected');
-        },
-        client.onmessage = (message) => {
-            const dataFromServer = JSON.parse(message.data);
-            if(dataFromServer){
-                setMessages((messages) => [...messages, {
-                    word: dataFromServer.word,
-                    player: dataFromServer.player
-                }]);
-            }
-        }
     }, []);
 
     return (
