@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
 
 import Navbar from "../common/Navbar";
+import WordleWord from "../common/WordleWord";
 
 import authService from '../../services/authService';
 import gameService from '../../services/gameService';
@@ -76,7 +77,8 @@ const Game = () => {
                         } else if (dataFromServer.msg_type === 'attempt'){
                             setMessages((messages) => [...messages, {
                                 word: dataFromServer.word,
-                                player: dataFromServer.player
+                                player: dataFromServer.player,
+                                hint: dataFromServer.hint,
                             }]);
                         }
                     }
@@ -133,7 +135,7 @@ const Game = () => {
                                     fontWeight: "bold",
                                 }}
                                 >
-                                {message.word}
+                                <WordleWord word={message.word} hint={message.hint}/>
                                 </Typography>
                             </Grid>
                             { message.player.email === myUser && (
