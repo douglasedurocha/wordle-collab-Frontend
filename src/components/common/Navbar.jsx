@@ -1,13 +1,15 @@
-import { AppBar, Toolbar, Box, Grid, Button } from '@mui/material';
+import { AppBar, Toolbar, Box, Grid, Button, ButtonBase } from '@mui/material';
 
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import Logo from "../../assets/logo.png";
 
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
     const handleLogout = () => {
         toast.warning('You logged out', {
             position: toast.POSITION.TOP_CENTER
@@ -17,15 +19,18 @@ const Navbar = () => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <Box
-                    component="img"
-                    sx={{
-                        height: 64,
-                        pr: 2,
-                    }}
-                    alt="Your logo."
-                    src={Logo}
-                />
+                <ButtonBase>
+                    <Box
+                        component="img"
+                        sx={{
+                            height: 64,
+                            pr: 2,
+                        }}
+                        alt="Your logo."
+                        src={Logo}
+                        onClick={() => navigate('/')}
+                    />
+                </ButtonBase>
                 <Grid container justifyContent="end">
                     <Button color="inherit" component={Link}>
                         Profile
