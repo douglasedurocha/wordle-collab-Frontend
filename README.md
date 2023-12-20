@@ -46,7 +46,7 @@ Ensure that both the back-end and front-end applications are running on the same
 
 <h3 align="center">Game</h3>
 
-![game](https://raw.githubusercontent.com/douglasedurocha/wordle-collab-Frontend/main/media/gif/game_screen.gif)
+![game](https://raw.githubusercontent.com/douglasedurocha/wordle-collab-Frontend/main/media/gif/game_screen_resized.gif)
 
 
 
