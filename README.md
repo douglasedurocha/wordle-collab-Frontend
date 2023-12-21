@@ -17,7 +17,7 @@ Looking for back-end? https://github.com/douglasedurocha/wordle-collab
 
 ## Dependencies:
 
-+ [npm](https://python-poetry.org) : a package manager for the JavaScript programming language.
+- [npm](https://python-poetry.org) : a package manager for the JavaScript programming language.
 
 ## Getting started:
 
@@ -43,14 +43,9 @@ Ensure that both the back-end and front-end applications are running on the same
 
 ![login](https://raw.githubusercontent.com/douglasedurocha/wordle-collab-Frontend/main/media/gif/register_login_screen.gif)
 
-
 <h3 align="center">Game</h3>
 
 ![game](https://raw.githubusercontent.com/douglasedurocha/wordle-collab-Frontend/main/media/gif/game_screen_resized.gif)
-
-
-
-
 
 <!-- ### Usage -->
 
