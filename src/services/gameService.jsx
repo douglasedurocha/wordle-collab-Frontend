@@ -13,47 +13,31 @@ const client = axios.create({
 
 const gameService = {
     createGame: async () => {
-        try {
-            const res = await client.post("/create", null, {
-                headers: { "X-CSRFToken": cookies.load('csrftoken') }
-            });
-            return res.data;
-        } catch (error) {
-            throw error;
-        }
+        const res = await client.post("/create", null, {
+            headers: { "X-CSRFToken": cookies.load('csrftoken') }
+        });
+        return res.data;
     },
 
     getGame: async (gameId) => {
-        try {
-            const res = await client.get(`/${gameId}`, {
-                headers: { "X-CSRFToken": cookies.load('csrftoken') }
-            });
-            return res.data;
-        } catch (error) {
-            throw error;
-        }
+        const res = await client.get(`/${gameId}`, {
+            headers: { "X-CSRFToken": cookies.load('csrftoken') }
+        });
+        return res.data;
     },
 
     listOpenGames: async () => {
-        try {
-            const res = await client.get("/list-open", {
-                headers: { "X-CSRFToken": cookies.load('csrftoken') }
-            });
-            return res.data;
-        } catch (error) {
-            throw error;
-        }
+        const res = await client.get("/list-open", {
+            headers: { "X-CSRFToken": cookies.load('csrftoken') }
+        });
+        return res.data;
     },
 
     getAttemtsByGameId: async (gameId) => {
-        try {
-            const res = await client.get(`/${gameId}/attempts`, {
-                headers: { "X-CSRFToken": cookies.load('csrftoken') }
-            });
-            return res.data;
-        } catch (error) {
-            throw error;
-        }
+        const res = await client.get(`/${gameId}/attempts`, {
+            headers: { "X-CSRFToken": cookies.load('csrftoken') }
+        });
+        return res.data;
     }
 };
 

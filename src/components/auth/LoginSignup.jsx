@@ -13,7 +13,7 @@ import {
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -21,7 +21,6 @@ import authService from '../../services/authService';
 
 
 const LoginSignup = () => {
-    const [currentUser, setCurrentUser] = useState();
     const [action, setAction] = useState('login');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -32,7 +31,6 @@ const LoginSignup = () => {
     useEffect(() => {
         authService.logoutUser()
             .then(user => {
-                setCurrentUser(user);
                 console.log(user);
             })
             .catch(err =>
@@ -46,7 +44,6 @@ const LoginSignup = () => {
         if (action === 'login') {
             authService.loginUser(email, password)
                 .then(user => {
-                    setCurrentUser(user);
                     console.log(user);
                     navigate('/');
                     toast.success('You succesfuly login', {
@@ -62,7 +59,6 @@ const LoginSignup = () => {
         } else if (action === 'register') {
             authService.registerUser(email, password)
                 .then(user => {
-                    setCurrentUser(user);
                     console.log(user);
                     toast.success('User created! Please log in', {
                         position: toast.POSITION.TOP_CENTER

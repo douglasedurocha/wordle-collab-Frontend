@@ -1,8 +1,7 @@
 import { Button, Grid, Typography, TextField, Container, Avatar } from '@mui/material';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
 
 import { w3cwebsocket as W3CWebSocket } from 'websocket';
@@ -24,9 +23,9 @@ const Game = () => {
 
     const gameId = params.id;
 
-    const client = new W3CWebSocket('ws://127.0.0.1:8000/ws/' + gameId);
+    const client = useMemo(() => new W3CWebSocket('ws://127.0.0.1:8000/ws/' + gameId), [gameId]);
 
-    const handleAttempt = (e) => {
+    const handleAttempt = () => {
         if (myAttemptWord.length !== 5) {
             toast.error('Please enter a 5 letter word', {
                 position: toast.POSITION.TOP_CENTER
@@ -83,19 +82,19 @@ const Game = () => {
                         }
                     }
                 };
-            }).catch(err => {
+            }).catch(() => {
                 toast.error('Game room does not exist', {
                     position: toast.POSITION.TOP_CENTER
                 });
                 navigate('/');
             });
-        }).catch(err => {
+        }).catch(() => {
             toast.error('Please login to continue', {
                 position: toast.POSITION.TOP_CENTER
             });
             navigate('/login');
         });
-    }, []);
+    }, [client, gameId, navigate]);
 
     return (
         <>
@@ -110,40 +109,40 @@ const Game = () => {
                     <Typography variant='h5' align='center'>Game {gameId}</Typography>
                     <Grid justifyContent="center" flexGrow={0.3} sx={{mt: 2, minHeight: '50vh'}}>
                         {messages.map((message, i) => (
-                        <Grid container justify="center" alignItems={'center'} sx={{marginBottom: -5,}}>
-                            { message.player.email !== myUser && (
-                                <Grid item xs={1} >
-                                    <Avatar sx={{width: 30, height: 30, bgcolor: getColor(message.player.email.charCodeAt(1)), textTransform: 'uppercase'}}>{message.player.email.charAt(0)}</Avatar>
+                            <Grid container justify="center" alignItems={'center'} sx={{marginBottom: -5,}} key={i}>
+                                { message.player.email !== myUser && (
+                                    <Grid item xs={1} >
+                                        <Avatar sx={{width: 30, height: 30, bgcolor: getColor(message.player.email.charCodeAt(1)), textTransform: 'uppercase'}}>{message.player.email.charAt(0)}</Avatar>
+                                    </Grid>
+                                ) || (
+                                    <Grid item xs={1} >
+                                    </Grid>
+                                )}
+                                <Grid item xs={10}>
+                                    <Typography
+                                        sx={{
+                                            fontSize: {
+                                                lg: 70,
+                                                md: 70,
+                                                sm: 60,
+                                                xs: 60
+                                            },
+                                            fontFamily: "monospace",
+                                            textTransform: "uppercase",
+                                            letterSpacing: 10,
+                                            textAlign: "center",
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        <WordleWord word={message.word} hint={message.hint}/>
+                                    </Typography>
                                 </Grid>
-                            ) || (
-                                <Grid item xs={1} >
-                                </Grid>
-                            )}
-                            <Grid item xs={10}>
-                                <Typography
-                                sx={{
-                                    fontSize: {
-                                        lg: 70,
-                                        md: 70,
-                                        sm: 60,
-                                        xs: 60
-                                    },
-                                    fontFamily: "monospace",
-                                    textTransform: "uppercase",
-                                    letterSpacing: 10,
-                                    textAlign: "center",
-                                    fontWeight: "bold",
-                                }}
-                                >
-                                <WordleWord word={message.word} hint={message.hint}/>
-                                </Typography>
+                                { message.player.email === myUser && (
+                                    <Grid item xs={1} >
+                                        <Avatar sx={{ml: -2, width: 30, height: 30, bgcolor: '#e33d4e' }}>Me</Avatar>
+                                    </Grid>
+                                )}
                             </Grid>
-                            { message.player.email === myUser && (
-                                <Grid item xs={1} >
-                                    <Avatar sx={{ml: -2, width: 30, height: 30, bgcolor: '#e33d4e' }}>Me</Avatar>
-                                </Grid>
-                            )}
-                        </Grid>
                         ))}
                     </Grid>
                     <TextField

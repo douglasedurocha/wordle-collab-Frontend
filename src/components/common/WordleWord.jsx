@@ -1,6 +1,11 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 
 const WordleWord = ({ word, hint }) => {
+    WordleWord.propTypes = {
+        word: PropTypes.string.isRequired,
+        hint: PropTypes.string.isRequired,
+    };
+    
     const colors = {
         0: "#000000", // black
         1: "#FFA500", // orange
@@ -17,5 +22,6 @@ const WordleWord = ({ word, hint }) => {
         </div>
     );
 };
+
 
 export default WordleWord;

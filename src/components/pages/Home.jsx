@@ -15,7 +15,9 @@ import {
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import PersonIcon from '@mui/icons-material/Person';
 
-import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
@@ -62,6 +64,9 @@ const Home = () => {
     }
 
     const GameListItem = ({ game }) => {
+        GameListItem.propTypes = {
+            game: PropTypes.object.isRequired,
+        };
         return (
             <ListItem>
                 <ListItemIcon>
@@ -97,7 +102,7 @@ const Home = () => {
                     console.log(err);
                 });
         }
-    }, []);
+    }, [navigate]);
 
     return (
         <div>

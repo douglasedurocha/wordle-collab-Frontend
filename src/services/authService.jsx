@@ -13,53 +13,37 @@ const client = axios.create({
 
 const authService = {
     fetchUserProfile: async () => {
-        try {
-            const res = await client.get("/user", {
-                headers: { "X-CSRFToken": cookies.load('csrftoken') }
-            });
-            return res.data;
-        } catch (error) {
-            throw error;
-        }
+        const res = await client.get("/user", {
+            headers: { "X-CSRFToken": cookies.load('csrftoken') }
+        });
+        return res.data;
     },
 
     loginUser: async (email, password) => {
-        try {
-            const res = await client.post("/login", {
-                email: email,
-                password: password
-            }, {
-                headers: { "X-CSRFToken": cookies.load('csrftoken') }
-            });
-            return res.data;
-        } catch (error) {
-            throw error;
-        }
+        const res = await client.post("/login", {
+            email: email,
+            password: password
+        }, {
+            headers: { "X-CSRFToken": cookies.load('csrftoken') }
+        });
+        return res.data;
     },
 
     registerUser: async (email, password) => {
-        try {
-            const res = await client.post("/register", {
-                email: email,
-                password: password
-            }, {
-                headers: { "X-CSRFToken": cookies.load('csrftoken') }
-            });
-            return res.data;
-        } catch (error) {
-            throw error;
-        }
+        const res = await client.post("/register", {
+            email: email,
+            password: password
+        }, {
+            headers: { "X-CSRFToken": cookies.load('csrftoken') }
+        });
+        return res.data;
     },
 
     logoutUser: async () => {
-        try {
-            const res = await client.post("/logout", null, {
-                headers: { "X-CSRFToken": cookies.load('csrftoken') }
-            });
-            return res.data;
-        } catch (error) {
-            throw error;
-        }
+        const res = await client.post("/logout", null, {
+            headers: { "X-CSRFToken": cookies.load('csrftoken') }
+        });
+        return res.data;
     }
 };
 
