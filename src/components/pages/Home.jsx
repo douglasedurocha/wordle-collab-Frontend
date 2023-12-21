@@ -1,29 +1,31 @@
-import {
-  Container,
-  Modal,
-  TextField,
-  Button,
-  Box,
-  Grid,
-  Typography,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  IconButton,
-} from '@mui/material';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import PersonIcon from '@mui/icons-material/Person';
-
-import PropTypes from 'prop-types';
-
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cookies from 'react-cookies';
 import { toast } from 'react-toastify';
 
-import gameService from '../../services/gameService';
+import PropTypes from 'prop-types';
+
+import {
+    Container,
+    Modal,
+    TextField,
+    Button,
+    Box,
+    Grid,
+    Typography,
+    List,
+    ListItem,
+    ListItemText,
+    ListItemIcon,
+    IconButton,
+} from '@mui/material';
+
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import PersonIcon from '@mui/icons-material/Person';
+
 import Navbar from '../common/Navbar';
+
+import gameService from '../../services/gameService';
 
 const Home = () => {
   const navigate = useNavigate();

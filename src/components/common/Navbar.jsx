@@ -1,7 +1,7 @@
-import { AppBar, Toolbar, Box, Grid, Button, ButtonBase } from '@mui/material';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
+import { AppBar, Toolbar, Box, Grid, Button, ButtonBase } from '@mui/material';
 
 import Logo from '../../assets/logo.png';
 
