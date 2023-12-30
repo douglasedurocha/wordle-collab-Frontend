@@ -16,6 +16,8 @@ const authService = {
     const res = await client.get('/user', {
       headers: {
         'X-CSRFToken': cookies.load('csrftoken'),
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Credentials': true,
       },
     });
@@ -32,6 +34,8 @@ const authService = {
       {
         headers: {
           'X-CSRFToken': cookies.load('csrftoken'),
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*',
           'Access-Control-Allow-Credentials': true,
         },
       },
@@ -49,6 +53,8 @@ const authService = {
       {
         headers: {
           'X-CSRFToken': cookies.load('csrftoken'),
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': '*',
           'Access-Control-Allow-Credentials': true,
         },
       },
@@ -60,6 +66,8 @@ const authService = {
     const res = await client.post('/logout', null, {
       headers: {
         'X-CSRFToken': cookies.load('csrftoken'),
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Credentials': true,
       },
     });
