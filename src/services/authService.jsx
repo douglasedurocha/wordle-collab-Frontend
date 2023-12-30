@@ -6,8 +6,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
 const client = axios.create({
-  // TODO: Put this in a .env file
-  baseURL: 'http://127.0.0.1:8000/api/accounts',
+  baseURL: `${import.meta.env.VITE_API_URL}/api/accounts`,
   sameSite: 'none',
 });
 

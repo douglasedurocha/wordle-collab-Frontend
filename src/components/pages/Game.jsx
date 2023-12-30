@@ -29,7 +29,7 @@ const Game = () => {
   const gameId = params.id;
 
   const client = useMemo(
-    () => new W3CWebSocket('ws://127.0.0.1:8000/ws/' + gameId),
+    () => new W3CWebSocket(`${import.meta.env.VITE_WS_URL}/ws/` + gameId),
     [gameId],
   );
 
