@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Home from './components/pages/Home';
 import Game from './components/pages/Game';
-import LoginSignup from './components/auth/LoginSignup';
+import LoginSignup from './components/pages/LoginSignup';
 
 function App() {
   return (
