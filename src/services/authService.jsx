@@ -3,7 +3,7 @@ import cookies from 'react-cookies';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 
 const client = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api/accounts`,
@@ -12,8 +12,12 @@ const client = axios.create({
 
 const authService = {
   fetchUserProfile: async () => {
+    console.log(cookies.load('csrftoken'));
     const res = await client.get('/user', {
-      headers: { 'X-CSRFToken': cookies.load('csrftoken') },
+      headers: {
+        'X-CSRFToken': cookies.load('csrftoken'),
+        'Access-Control-Allow-Credentials': true,
+      },
     });
     return res.data;
   },
@@ -26,7 +30,10 @@ const authService = {
         password: password,
       },
       {
-        headers: { 'X-CSRFToken': cookies.load('csrftoken') },
+        headers: {
+          'X-CSRFToken': cookies.load('csrftoken'),
+          'Access-Control-Allow-Credentials': true,
+        },
       },
     );
     return res.data;
@@ -40,7 +47,10 @@ const authService = {
         password: password,
       },
       {
-        headers: { 'X-CSRFToken': cookies.load('csrftoken') },
+        headers: {
+          'X-CSRFToken': cookies.load('csrftoken'),
+          'Access-Control-Allow-Credentials': true,
+        },
       },
     );
     return res.data;
@@ -48,7 +58,10 @@ const authService = {
 
   logoutUser: async () => {
     const res = await client.post('/logout', null, {
-      headers: { 'X-CSRFToken': cookies.load('csrftoken') },
+      headers: {
+        'X-CSRFToken': cookies.load('csrftoken'),
+        'Access-Control-Allow-Credentials': true,
+      },
     });
     return res.data;
   },
